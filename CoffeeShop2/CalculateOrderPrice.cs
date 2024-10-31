@@ -8,17 +8,10 @@ namespace CoffeeShop2
 {
     public class CalculateOrderPrice
     {
-        public decimal Calculate(decimal price, string size)
+        public static decimal Calculate(decimal basePrice, CoffeeSize size)
         {
-            if (size == null)
-            {
-                throw new ArgumentNullException("size");
-            }
-            if (size.ToLower() == "large")
-            {
-                return price * (decimal)1.2;
-            }
-            return price;
+            var calculatedPrice = basePrice * 1.2m;
+            return size == CoffeeSize.Large ? calculatedPrice : basePrice;
         }
 
     }

@@ -25,14 +25,11 @@ namespace CoffeeShop2
 
         public static string SelectCoffee()
         {
-            try
+            CoffeeOption = int.Parse(Console.ReadLine());
+            while (CoffeeOption > Menu.Count || CoffeeOption <= 0)
             {
+                Console.WriteLine("Option doesn't exists, try again");
                 CoffeeOption = int.Parse(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Invalid input");
-                return null;
             }
             for (int i = 0; i < Menu.Count; i++)
             {
@@ -41,26 +38,27 @@ namespace CoffeeShop2
                     return Menu[i].Name;
                 }
             }
-            throw new Exception("Not an option");
+            throw new Exception("Invalid character is entered");
         }
-        public static string SelectSize()
+        public static CoffeeSize SelectSize()
         {
             Console.WriteLine("Please select the coffee size : \n\n1. Regular \n2. Large \n");
             SizeOption = int.Parse(Console.ReadLine());
-            switch (SizeOption)
-            {
-                case 1:
-                    return "Regular";
-                case 2:
-                    return "Large";
 
-            }
-            return "Invalid option";
+            if (SizeOption == 1)
+                return CoffeeSize.Regular;
+            else if (SizeOption == 2)
+                return CoffeeSize.Large;
+            else
+                Console.WriteLine("Invalid size option selected");
+            Environment.Exit(0);
+
+            throw new InvalidOperationException();
         }
 
-        public static void DisplayOrder(string coffeeName, string coffeeSize, decimal price)
+        public static void DisplayOrder(Coffee coffee)
         {
-            Console.WriteLine("You ordered " + coffeeSize + " " + coffeeName + " and price is : " + price);
+            Console.WriteLine($"You ordered {coffee.Size} {coffee.Name} with the price of {coffee.FullPrice}");
         }
     }
 }

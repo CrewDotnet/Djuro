@@ -4,17 +4,16 @@
     {
         static void Main(string[] args)
         {
-            var price = 2;
+            var coffee = new Coffee {BasePrice = 2};
 
             Order.DisplayMenu();
-            var selectedCoffee = Order.SelectCoffee();
 
-            var size = Order.SelectSize();
+            coffee.Name = Order.SelectCoffee();
 
-            var orderPriceCalculation = new CalculateOrderPrice();
-            var orderPrice = orderPriceCalculation.Calculate(price, size);
+            coffee.Size = Order.SelectSize();
+            coffee.FullPrice = CalculateOrderPrice.Calculate(coffee.BasePrice, coffee.Size);
 
-            Order.DisplayOrder(selectedCoffee, size, orderPrice);
+            Order.DisplayOrder(coffee);
 
 
             

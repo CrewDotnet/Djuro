@@ -9,8 +9,9 @@ namespace CoffeeShop2
     public class Coffee
     {
         public string Name { get; set; }
-        //public string Size { get; set; }
-        //public decimal Price { get; set; }
+        public CoffeeSize Size { get; set; }
+        public decimal BasePrice { get; set; }
+        public decimal FullPrice { get; set; }
 
     }
 }
