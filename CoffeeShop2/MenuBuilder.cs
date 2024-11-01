@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 namespace CoffeeShop2
 {
-    public class MenuBuilder
+    public class MenuBuilder : Coffee
     {
-        public static List<Coffee> Menu { get; set; } = new List<Coffee>();
+        public static List<Coffee> Menu { get; set; } = [];
+        private static readonly List<Coffee> Coffees =
+        [
+            new (){Name = "Espresso"},
+            new (){Name = "Macchiato"},
+            new (){Name = "Cappuccino"},
+        ];
 
         public static List<Coffee> FillMenu()
         {
-            var coffee1 = new Coffee { Name = "Machiato" };
-            var coffee2 = new Coffee { Name = "Espresso" };
-            var coffee3 = new Coffee { Name = "Capuccino" };
-
-            Menu.Add(coffee1);
-            Menu.Add(coffee2);
-            Menu.Add(coffee3);
-
+            foreach (var coffee in Coffees)
+            {
+                Menu.Add(coffee);
+            }
             return Menu;
         }
 

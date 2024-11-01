@@ -13,7 +13,7 @@
             coffee.Size = Order.SelectSize();
             coffee.FullPrice = CalculateOrderPrice.Calculate(coffee.BasePrice, coffee.Size);
 
-            Order.DisplayOrder(coffee);
+            Order.Display(coffee);
 
 
             

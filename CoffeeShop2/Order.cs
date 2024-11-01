@@ -56,7 +56,7 @@ namespace CoffeeShop2
             throw new InvalidOperationException();
         }
 
-        public static void DisplayOrder(Coffee coffee)
+        public static void Display(Coffee coffee)
         {
             Console.WriteLine($"You ordered {coffee.Size} {coffee.Name} with the price of {coffee.FullPrice}");
         }

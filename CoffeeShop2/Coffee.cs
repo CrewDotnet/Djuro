@@ -10,7 +10,7 @@ namespace CoffeeShop2
     {
         public string Name { get; set; }
         public CoffeeSize Size { get; set; }
-        public decimal BasePrice { get; set; }
+        public decimal BasePrice { get; set; } = decimal.Zero;
         public decimal FullPrice { get; set; }
 
     }
