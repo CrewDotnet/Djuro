@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,27 +12,35 @@ namespace CoffeeShop2
         private static int CoffeeOption { get; set; }
         private static int SizeOption { get; set; }
 
-        public static void DisplayMenu()
+        private readonly IConsole _console;
+
+        public Order()
+        {
+        }
+        public Order(IConsole console)
+        {
+            _console = console;
+        }
+        public void DisplayMenu()
         {
             FillMenu();
 
-            Console.WriteLine("Please select your coffee : \n ");
-            for (int i = 0; i < Menu.Count; i++)
+            _console.WriteLine("Please select your coffee : \n ");
+            for (var i = 0; i < Menu.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {Menu[i].Name}");
             }
 
         }
-
-        public static string SelectCoffee()
+        public string SelectCoffee()
         {
-            CoffeeOption = int.Parse(Console.ReadLine());
+            CoffeeOption = int.Parse(_console.ReadLine());
             while (CoffeeOption > Menu.Count || CoffeeOption <= 0)
             {
-                Console.WriteLine("Option doesn't exists, try again");
-                CoffeeOption = int.Parse(Console.ReadLine());
+                _console.WriteLine("Option doesn't exists, try again");
+                CoffeeOption = int.Parse(_console.ReadLine());
             }
-            for (int i = 0; i < Menu.Count; i++)
+            for (var i = 0; i < Menu.Count; i++)
             {
                 if (CoffeeOption - 1 == i)
                 {
@@ -40,25 +49,38 @@ namespace CoffeeShop2
             }
             throw new Exception("Invalid character is entered");
         }
-        public static CoffeeSize SelectSize()
+        public CoffeeSize SelectSize()
         {
-            Console.WriteLine("Please select the coffee size : \n\n1. Regular \n2. Large \n");
-            SizeOption = int.Parse(Console.ReadLine());
+            _console.WriteLine("Please select the coffee size : \n\n1. Regular \n2. Large \n");
+            SizeOption = UserInput();
 
+            while (SizeOption != 1 && SizeOption != 2)
+            {
+                _console.WriteLine("Invalid size option selected");
+                _console.WriteLine("Please select the coffee size : \n\n1. Regular \n2. Large \n");
+                UserInput();
+            }
             if (SizeOption == 1)
-                return CoffeeSize.Regular;
-            else if (SizeOption == 2)
+                return CoffeeSize.Regular; 
+            if (SizeOption == 2)
                 return CoffeeSize.Large;
-            else
-                Console.WriteLine("Invalid size option selected");
-            Environment.Exit(0);
-
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Unexpected error: Invalid coffee size option.");
         }
-
-        public static void Display(Coffee coffee)
+        private int UserInput()
         {
-            Console.WriteLine($"You ordered {coffee.Size} {coffee.Name} with the price of {coffee.FullPrice}");
+            try
+            {
+                return int.Parse(_console.ReadLine());
+            }
+            catch (FormatException e)
+            {
+                _console.WriteLine("Invalid input. Please enter numeric value");
+                return -1;
+            }
+        }
+        public void Display(Coffee coffee)
+        {
+            _console.WriteLine($"You ordered {coffee.Size} {coffee.Name} with the price of {coffee.FullPrice}");
         }
     }
 }

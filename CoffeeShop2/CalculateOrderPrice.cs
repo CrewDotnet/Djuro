@@ -8,10 +8,10 @@ namespace CoffeeShop2
 {
     public class CalculateOrderPrice
     {
-        public static decimal Calculate(decimal basePrice, CoffeeSize size)
+        public static decimal Calculate(Coffee coffee)
         {
-            var calculatedPrice = basePrice * 1.2m;
-            return size == CoffeeSize.Large ? calculatedPrice : basePrice;
+            var calculatedPrice = coffee.BasePrice * 1.2m;
+            return coffee.Size == CoffeeSize.Large ? calculatedPrice : coffee.BasePrice;
         }
 
     }

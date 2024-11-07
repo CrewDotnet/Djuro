@@ -5,15 +5,16 @@
         static void Main(string[] args)
         {
             var coffee = new Coffee {BasePrice = 2};
+            var order = new Order(new ConsoleActions());
 
-            Order.DisplayMenu();
+            order.DisplayMenu();
 
-            coffee.Name = Order.SelectCoffee();
+            coffee.Name = order.SelectCoffee();
 
-            coffee.Size = Order.SelectSize();
-            coffee.FullPrice = CalculateOrderPrice.Calculate(coffee.BasePrice, coffee.Size);
+            coffee.Size = order.SelectSize();
+            coffee.FullPrice = CalculateOrderPrice.Calculate(coffee);
 
-            Order.Display(coffee);
+            order.Display(coffee);
 
 
             
